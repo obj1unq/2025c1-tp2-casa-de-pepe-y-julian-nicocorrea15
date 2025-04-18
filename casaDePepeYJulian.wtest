@@ -24,6 +24,41 @@ describe "test para pepe y julian" {
      assert.that(casaDePepeYJulian.faltaComida())// falta comida 
      assert.equals([electrodomestico,mueble], casaDePepeYJulian.categoriasCompradas())// las categorías compradas son electrodoméstico y mueble 
   }
+   
+   test "cuentaBancaria" {
+        cuentaBancaria.saldo(20)
+        cuentaBancaria.depositar(1000) 
+        assert.equals(1020, cuentaBancaria.saldo())
+        cuentaBancaria.extraer(50)
+        assert.equals(970, cuentaBancaria.saldo())
+        assert.throwsException({ cuentaBancaria.extraer(2000) })
+    // Caso de Prueba: si la cuenta tiene 20 de saldo, si se deposita 1000 pesos, el saldo queda en 1020 pesos, 
+    //si luego se extre 50 queda en 970 pesos. Si se intenta extraer 2000 debería lanzar error ya que no se puede cumplir la responsabilidad.
+   }
 
+    test "cuentaGastos" {
+          cuentaGastos.saldo(500)
+          cuentaGastos.costoPorOperacion(20)
+          cuentaGastos.depositar(1000)
+          assert.equals(1480, cuentaGastos.saldo())
+          cuentaGastos.extraer(30)
+          assert.equals(1450, cuentaGastos.saldo())
+          assert.throwsException({ cuentaGastos.depositar(2000) })
+          cuentaGastos.extraer(2000)
+          assert.equals(-550, cuentaGastos.saldo())
 
+        //Caso de Prueba: para una cuenta con un saldo de 500 pesos y 20 pesos de costo por operación, si se deposita 1000 pesos, 
+        //el saldo queda en 1480 pesos. Si luego se extrae 30, queda en 1450. Después se eso se intenta depositar 2000, 
+        //pero no se puede porque violaría la regla de negocio, por lo que hay que verificar que se lance el error y 
+        //que el saldo siga siendo de 1450. Finalmente se extren 2000 pesos dejando el saldo en -550.
+    }
+
+    test "la cuenta de la casa de pepe al efectuar compras" {
+          cuentaBancaria.saldo(1000)
+          casaDePepeYJulian.comprar(tiraDeAsado)
+          casaDePepeYJulian.comprar(paqueteDeFideos)
+          assert.equals(600, cuentaBancaria.saldo())
+          // Ejemplo: Si la casa tiene configurada una cuenta corriente con saldo 1000, 
+          // se compra una tira de asado y un paquete de fideos, entonces la cuenta corriente queda con saldo 600.
+    }
 }

@@ -14,6 +14,7 @@ object casaDePepeYJulian {
             cosasCompradas.add(cosa) // agregar cada compra a un conjunto
             cantCosasCompradas += 1 // suma la cantidad comprada
             totalGastado += cosa.precio()
+            cuentaBancaria.extraer(cosa.precio()) // yo elegiria cuentaGastos ya que puede tener valores negativo, pero necesito esto para el test
     }
 
     method cantidadDeCosasCompradas() {
@@ -60,5 +61,37 @@ object casaDePepeYJulian {
            return cosasCompradas.map({cosa => cosa.categoria()}) // recibe una lista y devuelve otra con las categorias que vio en esa lista
     }
 }
+
+object cuentaBancaria {
+    var property saldo = 0
+
+    method extraer(cantidad) { // no puede extraer si no hay dinero
+      if (cantidad > saldo ) {
+        throw "Saldo insuficiente"
+      }
+      saldo -= cantidad 
+    }
+
+    method depositar(cantidad) {
+      saldo += cantidad
+    }
+    
+}
+
+   object cuentaGastos {
+       var property saldo = 0
+       var property costoPorOperacion = 0
+
+       method depositar(cantidad) {
+            if (cantidad > 1000) {
+                throw "No se permite depositar mas de $1000 en una sola accion"
+            }
+            saldo += cantidad - costoPorOperacion
+       }
+
+       method extraer(cantidad) {
+         saldo -= cantidad
+       }
+   }
 
 
