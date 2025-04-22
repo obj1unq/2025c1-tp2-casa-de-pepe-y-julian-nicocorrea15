@@ -4,6 +4,7 @@ import cosas.*
 
 describe "test para pepe y julian" {
   test "test de pepe y julian" {         //   hacer que se compre una heladera, una cama y una placha
+     casa.cuentaBancaria.saldo(30000)  // inicio con plata porque si no no puedo comprar nada o cambio de cuenta 
      casaDePepeYJulian.comprar(heladera) 
      casaDePepeYJulian.comprar(cama)
      casaDePepeYJulian.comprar(plancha)

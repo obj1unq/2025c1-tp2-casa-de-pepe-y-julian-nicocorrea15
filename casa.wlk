@@ -36,7 +36,7 @@ object casaDePepeYJulian {
     } 
 
     method esDerrochona() { // indica si el importe total de las cosas compradas es de 9000 pesos o mas 
-      return totalGastado() > 9000 // recibe una lista y pregunta si el valor de todos los precios de esa lista es mayor a 9000
+      return self.totalGastado() > 9000 // recibe una lista y pregunta si el valor de todos los precios de esa lista es mayor a 9000
     } 
 
     method compraMasCara(){ // retorna la cosa comprada de mayor valor 
