@@ -1,0 +1,66 @@
+import casa.*
+import cosas.*
+
+
+describe "test para pepe y julian" {
+  test "test de pepe y julian" {         //   hacer que se compre una heladera, una cama y una placha
+     casa.cuentaBancaria.saldo(30000)  // inicio con plata para comprar
+     //casaDePepeYJulian.cambiarCuenta(cuentaGastos) // o cambio de cuenta a una que me permita tener deuda
+     casaDePepeYJulian.comprar(heladera) 
+     casaDePepeYJulian.comprar(cama)
+     casaDePepeYJulian.comprar(plancha)
+
+     assert.equals([heladera,cama,plancha], casaDePepeYJulian.cosasCompradas())  // la lista de las cosas compradas es heladera, cama y plancha
+     assert.equals(3, casaDePepeYJulian.cantidadDeCosasCompradas()) // cantidad de cosas compradas es 3
+     assert.that(casaDePepeYJulian.tieneAlgun(electrodomestico))  // tiene algun electrodomestico
+     assert.that(casaDePepeYJulian.tieneAlgun(mueble)) // tiene algun mueble
+     assert.notThat(casaDePepeYJulian.tieneAlgun(comida)) // tiene alguna comida
+     assert.that(casaDePepeYJulian.vieneDeComprar(electrodomestico)) // si le preguntan si viene de comprar un electrodoméstico dice que sí
+     assert.notThat(casaDePepeYJulian.vieneDeComprar(mueble)) // pero si le preguntan si viene de comprar un mueble dice que no 
+     assert.that(casaDePepeYJulian.esDerrochona())// Es derrochona (ya que gastó 29200) 
+     assert.equals([heladera,plancha], casaDePepeYJulian.comprados(electrodomestico))// los electrodomésticos compramos son la heladera y la plancha 
+     assert.equals([cama], casaDePepeYJulian.comprados(mueble))// los muebles comprados son: la cama y nada más 
+     assert.equals([], casaDePepeYJulian.comprados(comida))// no hay comida comprada 
+     assert.notThat(casaDePepeYJulian.malaEpoca())// no es una mala época 
+     assert.equals([tiraDeAsado,paqueteDeFideos], casaDePepeYJulian.queFaltaComprar([tiraDeAsado,plancha,paqueteDeFideos]))// si le preguntamos que falta comprar de una tira de asado, una plancha y un paquete de fideos debe contestar que falta la tira de asado y el paquete de fideos. 
+     assert.that(casaDePepeYJulian.faltaComida())// falta comida 
+     assert.equals(#{electrodomestico,mueble}, casaDePepeYJulian.categoriasCompradas())// las categorías compradas son electrodoméstico y mueble 
+  }
+   
+   test "cuentaBancaria" {
+        cuentaBancaria.saldo(20)
+        cuentaBancaria.depositar(1000) 
+        assert.equals(1020, cuentaBancaria.saldo())
+        cuentaBancaria.extraer(50)
+        assert.equals(970, cuentaBancaria.saldo())
+        assert.throwsException({ cuentaBancaria.extraer(2000) })
+    // Caso de Prueba: si la cuenta tiene 20 de saldo, si se deposita 1000 pesos, el saldo queda en 1020 pesos, 
+    //si luego se extre 50 queda en 970 pesos. Si se intenta extraer 2000 debería lanzar error ya que no se puede cumplir la responsabilidad.
+   }
+
+    test "cuentaGastos" {
+          cuentaGastos.saldo(500)
+          cuentaGastos.costoPorOperacion(20)
+          cuentaGastos.depositar(1000)
+          assert.equals(1480, cuentaGastos.saldo())
+          cuentaGastos.extraer(30)
+          assert.equals(1450, cuentaGastos.saldo())
+          assert.throwsException({ cuentaGastos.depositar(2000) })
+          cuentaGastos.extraer(2000)
+          assert.equals(-550, cuentaGastos.saldo())
+
+        //Caso de Prueba: para una cuenta con un saldo de 500 pesos y 20 pesos de costo por operación, si se deposita 1000 pesos, 
+        //el saldo queda en 1480 pesos. Si luego se extrae 30, queda en 1450. Después se eso se intenta depositar 2000, 
+        //pero no se puede porque violaría la regla de negocio, por lo que hay que verificar que se lance el error y 
+        //que el saldo siga siendo de 1450. Finalmente se extren 2000 pesos dejando el saldo en -550.
+    }
+
+    test "la cuenta de la casa de pepe al efectuar compras" {
+          cuentaBancaria.saldo(1000)
+          casaDePepeYJulian.comprar(tiraDeAsado)
+          casaDePepeYJulian.comprar(paqueteDeFideos)
+          assert.equals(600, cuentaBancaria.saldo())
+          // Ejemplo: Si la casa tiene configurada una cuenta corriente con saldo 1000, 
+          // se compra una tira de asado y un paquete de fideos, entonces la cuenta corriente queda con saldo 600.
+    }
+}
