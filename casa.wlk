@@ -12,7 +12,7 @@ object casaDePepeYJulian {
     
     method comprar(cosa) {
             cuenta.extraer(cosa.precio()) // yo elegiria cuentaGastos ya que puede tener valores negativo, pero necesito esto para el test
-            cosasCompradas.add(cosa) // agregar cada compra a un conjunto
+            cosasCompradas.add(cosa) // agregar cada compra a un conjunto2
     }
     
     method cambiarCuenta(otraCuenta) {
@@ -68,7 +68,7 @@ object cuentaBancaria {
     var property saldo = 0
 
     method extraer(cantidad) { // no puede extraer si no hay dinero
-       validarExtraccion(cantidad)
+       self.validarExtraccion(cantidad)
        saldo -= cantidad 
     }
 
@@ -89,7 +89,7 @@ object cuentaBancaria {
        var property costoPorOperacion = 0
 
        method depositar(cantidad) {
-            validarDeposito(cantidad)
+            self.validarDeposito(cantidad)
             saldo += cantidad - costoPorOperacion
        }
 
