@@ -23,7 +23,7 @@ describe "test para pepe y julian" {
      assert.notThat(casaDePepeYJulian.malaEpoca())// no es una mala época 
      assert.equals([tiraDeAsado,paqueteDeFideos], casaDePepeYJulian.queFaltaComprar([tiraDeAsado,plancha,paqueteDeFideos]))// si le preguntamos que falta comprar de una tira de asado, una plancha y un paquete de fideos debe contestar que falta la tira de asado y el paquete de fideos. 
      assert.that(casaDePepeYJulian.faltaComida())// falta comida 
-     assert.equals([electrodomestico,mueble], casaDePepeYJulian.categoriasCompradas())// las categorías compradas son electrodoméstico y mueble 
+     assert.equals(#{electrodomestico,mueble}, casaDePepeYJulian.categoriasCompradas())// las categorías compradas son electrodoméstico y mueble 
   }
    
    test "cuentaBancaria" {
